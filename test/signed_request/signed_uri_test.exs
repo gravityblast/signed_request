@@ -1,5 +1,6 @@
 defmodule SignedRequest.SignedURITest do
   use ExUnit.Case
+  doctest SignedRequest.SignedURI
 
   alias SignedRequest.{SignedURI}
 
