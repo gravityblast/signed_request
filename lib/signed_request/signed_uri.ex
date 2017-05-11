@@ -2,11 +2,11 @@ defmodule SignedRequest.SignedURI do
   @hmac_param_name "sig"
 
   @doc """
-  Encode query using `URI.encode_query` and adding the signed request to a parameter called `sig`.
+  Encodes query using `URI.encode_query` and adds the signed request to a parameter called `sig`.
 
   ## Example
-  iex> SignedRequest.SignedURI.encode_query(%{size: 512})
-  "sig=7dc5fc28fa59ff89dff64bed05920978471f10ced63aca98452b54574a3aef0e&size=512"
+      iex> SignedRequest.SignedURI.encode_query(%{size: 512})
+      "sig=7dc5fc28fa59ff89dff64bed05920978471f10ced63aca98452b54574a3aef0e&size=512"
   """
   def encode_query(params) when is_map(params) do
     params
@@ -22,17 +22,17 @@ defmodule SignedRequest.SignedURI do
   end
 
   @doc """
-  Encode query using `URI.encode_query` and adding the signed request to a parameter called `sig`.
+  Decode query string validating the signature parameter.
 
   ## Example
-  iex> SignedRequest.SignedURI.decode_query("sig=7dc5fc28fa59ff89dff64bed05920978471f10ced63aca98452b54574a3aef0e&size=512")
-  {:ok, %{
-    "sig" => "7dc5fc28fa59ff89dff64bed05920978471f10ced63aca98452b54574a3aef0e",
-    "size" => "512"}
-  }
+      iex> SignedRequest.SignedURI.decode_query("sig=7dc5fc28fa59ff89dff64bed05920978471f10ced63aca98452b54574a3aef0e&size=512")
+      {:ok, %{
+        "sig" => "7dc5fc28fa59ff89dff64bed05920978471f10ced63aca98452b54574a3aef0e",
+        "size" => "512"}
+      }
 
-  iex> SignedRequest.SignedURI.decode_query("sig=invalid&size=512")
-  {:error, :invalid_hmac}
+      iex> SignedRequest.SignedURI.decode_query("sig=invalid&size=512")
+      {:error, :invalid_hmac}
   """
   def decode_query(query_string) when is_binary(query_string) do
     query_string
