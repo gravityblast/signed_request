@@ -11,8 +11,7 @@ defmodule SignedRequest.SignedURITest do
 
   def hmac(string) do
     secret = Application.get_env(:signed_request, :secret_key)
-    :sha256
-    |> :crypto.hmac(secret, string)
+    :crypto.mac(:hmac, :sha256, secret, string)
     |> Base.encode16
     |> String.downcase
   end
