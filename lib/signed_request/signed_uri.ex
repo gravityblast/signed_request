@@ -63,8 +63,7 @@ defmodule SignedRequest.SignedURI do
     |> create_hmac
   end
   defp create_hmac(params) when is_binary(params) do
-    :sha256
-    |> :crypto.hmac(secret_key(), params)
+    :crypto.mac(:hmac, :sha256, secret_key(), params)
     |> Base.encode16
     |> String.downcase
   end
